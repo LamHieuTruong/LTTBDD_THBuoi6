@@ -1,20 +1,64 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+  TextInput,
+  Button
+} from "react-native";
 
-export default function App() {
+
+function App () {
+  const [text, onChangeText] = React.useState("Useless Text");
+  const [number, onChangeNumber] = React.useState(null);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={[styles.container, {
+      // Try setting `flexDirection` to `"row"`.
+      
+      flexDirection: "column"
+    }]}>
+      <View>
+      <SafeAreaView>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="Nhập vào"
+        keyboardType="text"
+      />
+      <Button style={{flex:1, with: 20}}
+        title="ADD"
+        color="#f194ff"
+        
+      />
+    </SafeAreaView>
+      </View>
+      
+
+      <View style={{ flex: 1 }}/>
+     
+      
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
+
+
+export default App;
