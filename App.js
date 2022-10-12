@@ -1,64 +1,32 @@
-import React from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
-  Button
-} from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
-
-function App () {
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState(null);
-
+export default function App() {
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    fetch("https://6346d6c5745bd0dbd387c804.mockapi.io/User")
+      .then((res) => res.json())
+      .then((data) => {
+        setdata(data);
+      });
+  }, []);
   return (
-    <View style={[styles.container, {
-      // Try setting `flexDirection` to `"row"`.
-      
-      flexDirection: "column"
-    }]}>
-      <View>
-      <SafeAreaView>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="Nhập vào"
-        keyboardType="text"
-      />
-      <Button style={{flex:1, with: 20}}
-        title="ADD"
-        color="#f194ff"
-        
-      />
-    </SafeAreaView>
-      </View>
-      
-
-      <View style={{ flex: 1 }}/>
-     
-      
+    <View style={{margin: 20, marginTop: 50}}>
+      <ScrollView>
+        {data.map((user) => (
+          <Text key={user.id}>{user.name}</Text>
+        ))}
+      </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 });
-
-
-export default App;
